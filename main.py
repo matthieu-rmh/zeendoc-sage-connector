@@ -1,11 +1,4 @@
-from sage_calls import get_receipts
-    
-def convert_receipt_lines(receipts):
-    '''
-    Convert receipts into usable lines to be sent to Zeendoc
-    '''
-    return receipts
-
+from lib import get_sage_receipt_lines
 
 def main():
     '''
@@ -14,9 +7,7 @@ def main():
     '''
 
     # this is a variable populated with mock data simulating receipt lines
-    receipts = get_receipts()
-    
-    converted_receipts = convert_receipt_lines()
+    receipts = get_sage_receipt_lines()
 
     print(str(receipts))
 

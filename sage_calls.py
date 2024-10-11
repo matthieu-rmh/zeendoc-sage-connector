@@ -7,14 +7,7 @@ def get_url():
         config = json.load(file)
         return config['url']
 
-def get_resources():
-    url = get_url()
-    response = requests.get(f'{url}/users')
-    parsed_response = response.json()
-    return parsed_response
-
-
-def get_receptions():
+def get_receipts():
     url = get_url()
     response = requests.get(f'{url}/receptions')
     parsed_response = response.json()
