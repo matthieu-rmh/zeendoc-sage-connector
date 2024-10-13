@@ -1,14 +1,15 @@
 import requests
+from pathlib import Path
 import json
 
 # Get the endpoint URL from the config.json file
-def get_url():
+def get_endpoint_url():
     with open('config.json', 'r') as file:
         config = json.load(file)
         return config['url']
 
-def get_receipts():
-    url = get_url()
+def get_receipt_lines():
+    url = get_endpoint_url()
     response = requests.get(f'{url}/receptions')
     parsed_response = response.json()
     return parsed_response
