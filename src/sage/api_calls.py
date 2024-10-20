@@ -1,16 +1,20 @@
+import os
 import requests
-from pathlib import Path
-import json
+from dotenv import load_dotenv
 
-# Get the endpoint URL from the config.json file
-def get_endpoint_url():
-    config_path = Path(__file__).parent.parent.parent / "config.json"
-    with open(config_path, 'r') as file:
-        config = json.load(file)
-        return config['endpoint']
+def get_sage_credentials() -> dict[str, str | None]: 
+    """
+    Get the SAGE credentials generated from the .env file
+    """
+    load_dotenv()
+    return {
+            "url_endpoint": os.getenv('SAGE_ENDPOINT'),
+            "username": os.getenv('SAGE_USERNAME'),
+            "password": os.getenv('SAGE_PASSWORD')
+            }
 
 def get_receipt_lines():
-    endpoint = get_endpoint_url()
+    endpoint = get_sage_credentials()["url_endpoint"]
     # As the api authenticate by using cookies, we directly use a session object
     # so that we don't bother fetching those every time 
     s = requests.Session()
@@ -26,5 +30,7 @@ def get_receipt_lines():
 
 def authenticate(session):
     # Here the endpoint url should be like
-    endpoint = get_endpoint_url()
-    response = session.get(f'{endpoint}/$connect?username=sage&password=')
+    endpoint = get_sage_credentials()["url_endpoint"]
+    username = get_sage_credentials()["username"]
+    password = get_sage_credentials()["password"]
+    response = session.get(f'{endpoint}/$connect?username={username}&password={password}')
