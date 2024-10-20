@@ -13,24 +13,32 @@ def get_sage_credentials() -> dict[str, str | None]:
             "password": os.getenv('SAGE_PASSWORD')
             }
 
-def get_receipt_lines():
+def make_api_request(method: str, body: dict[str, str]) -> dict:
+    """
+    A boilerplate used to call sage api methods upon
+    """
     endpoint = get_sage_credentials()["url_endpoint"]
     # As the api authenticate by using cookies, we directly use a session object
     # so that we don't bother fetching those every time 
     s = requests.Session()
     authenticate(s)
-    # sample parameters used to fetch receipt lines
+    return s.post(f'{endpoint}{method}', json=body).json()
+
+
+def get_receipt_lines() -> dict[str, str]:
+    """
+    Get receipt lines from SAGE
+    """
     body = {
         "dateRef": "2023-01-01",
         "Societe": "Société 1"
     }
-    response = s.post(f'{endpoint}/CET_CAPI/GetReceptions', json=body)
-    parsed_response = response.json()
-    return parsed_response
 
-def authenticate(session):
-    # Here the endpoint url should be like
-    endpoint = get_sage_credentials()["url_endpoint"]
-    username = get_sage_credentials()["username"]
-    password = get_sage_credentials()["password"]
-    response = session.get(f'{endpoint}/$connect?username={username}&password={password}')
+    return make_api_request("/CET_CAPI/GetReceptions", body)
+
+def authenticate(session: requests.Session) -> requests.Response:
+    credentials = get_sage_credentials()
+    endpoint = credentials["url_endpoint"]
+    username = credentials["username"]
+    password = credentials["password"]
+    return session.get(f'{endpoint}/$connect?username={username}&password={password}')
