@@ -1,0 +1,154 @@
+erDiagram
+
+AccountGateway {
+int Id
+int ExportSavedQueryId
+int SpecificTreatement
+string CustomExported
+string ProfilTvaCollId
+string ProfilTvaCustom
+string LotCustom
+string SageNumPieceCustom
+datetime LastExecDate
+}
+
+AccountGateway||--o{ AccountGatewayMappingLine : "has many"
+AccountGateway||--o| Config : "has"
+
+AccountGatewayMappingLine {
+int Id
+int AccountGateway
+string ZeendocCustom
+string SageField
+}
+
+Armoire {
+int Id
+string Name
+string Url
+string TechAccountLogin
+string TechAccountPwd
+string SageBaseUrl
+string SageLogin
+string SageSociety
+string ConfigCollId
+string CustomCompanies
+string CustomCountries
+string CustomLegalStatus
+string CustomEtablissements
+boolean IsMultiEtablissements
+}
+
+Armoire||--o| Company : "has"
+Armoire||--o| Config : "has"
+
+Company {
+int Id
+int Armoire
+string SageCode
+string ZeendocName
+}
+
+Config {
+int Id
+int Armoire
+int SupplierSync
+int AccountGateway
+int PaymentInformations
+int PaymentVoucher
+string Name
+string CollId
+string TechAccountLogin
+string TechAccountPwd
+string SageBaseUrl
+string SageLogin
+string SagePwd
+string SageSociety
+string SageSociety
+boolean AccountGatewayEnabled
+boolean PaymentInformationsEnabled
+boolean PaymentVoucherEnabled
+}
+
+Config||--o{ MappingLine : "has many"
+
+EduservicesProratum {
+int Id
+decimal Prorata
+string Company
+string NonRefundableTaxAccount
+}
+
+MappingLine {
+int Id
+int Config
+string ZeendocCustom
+string Sagefield
+string Treatment
+}
+
+PaymentInformation {
+int Id
+int ImportSavedQueryId
+string CustomCompany
+string CustomPaymentDate
+string CustomAmount
+datetime LastExecDate
+}
+
+PaymentInformation ||--o{ Config : "has many"
+PaymentVoucher {
+int Id
+int ImportSavedQueryId
+string CustomCompany
+string CustomExported
+datetime LastExecDate
+}
+PaymentVoucher ||--o{ Config : "has many"
+
+SpecificTreatment{
+int Id
+string Name
+string Description
+}
+SpecificTreatment||--o{ AccountGateway : "has many"
+
+SpecificTreatmentParameter{
+int Id
+int SpecificTreatment
+int Value
+string Description
+}
+SpecificTreatment||--o| SpecificTreatmentParameter : "has one"
+
+SuppliersSyncList{
+  int Id
+  int SuppliersSync
+  string CollId
+  string Company
+  string CustomList
+  string Itemformat
+  boolean Enabled
+}
+
+SuppliersSyncMappingLine{
+  int Id
+  int SuppliersSync
+  string ZeendocCustom
+  string SageField
+}
+
+SuppliersSync{
+  int Id
+  int ExportSavedQueryId
+  int DisabledSavedQueryId
+  int RibCustomTypeIdValue
+  string CustomExported
+  string CustomSageResult
+  string RibCustomTypeId
+  string RibCollid
+  datetime LastExecDate
+}
+SuppliersSync ||--o{ SuppliersSyncMappingLine : "has many"
+SuppliersSync ||--o{ SuppliersSyncList: "has many"
+SuppliersSync ||--o{ Config : "has many"
