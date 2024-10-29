@@ -2,3 +2,4 @@ requests;
 pathlib;
 datetime;
 python-dotenv;
+redis_om
