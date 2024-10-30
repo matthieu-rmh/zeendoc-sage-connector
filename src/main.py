@@ -9,8 +9,8 @@ def main():
     raw_sage_receipt_lines = get_sage_receipt_lines()
     # print(str(type(raw_sage_receipt_lines)))
     converted_sage_receipt_lines = convert_receipt_lines(raw_sage_receipt_lines) 
-
-    print(str(converted_sage_receipt_lines[0]))
+    
+    print(str(converted_sage_receipt_lines))
 
     # this is a variable populated with mock data simulating receipt lines
     # receipts = get_sage_receipt_lines()
