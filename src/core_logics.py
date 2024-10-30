@@ -1,5 +1,5 @@
 from sage.api_calls import get_receipt_lines
-from datetime import datetime, date
+from datetime import datetime
 
 def get_sage_receipt_lines():
     return get_receipt_lines()

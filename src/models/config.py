@@ -1,8 +1,8 @@
-from redis_om import JsonModel 
+from redis_om import JsonModel, Migrator, Field
 from typing import Optional
 
 class Config(JsonModel):
-    id: int
+    id: int = Field(index=True)
     cupboard: int
     suppliers_sync: Optional[int] = None
     account_gateway: Optional[int] = None
