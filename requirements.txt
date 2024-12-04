@@ -4,3 +4,4 @@ datetime;
 python-dotenv;
 redis_om;
 flask;
+SQLAlchemy;
