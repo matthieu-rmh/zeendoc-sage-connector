@@ -3,8 +3,16 @@ from flask import Blueprint, jsonify, request
 from redis_om import Migrator
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from models.config import Config
+from models.config_pg import ConfigModel
+from pg.pg_session import session
 
 config_blueprint = Blueprint('config_blueprint', __name__)
+
+@config_blueprint.route('/configs-pg', methods=['GET'])
+def get_configs_pg():
+    configs = session.query(ConfigModel).all()
+    jsonified = [{k: v for k, v in vars(config).items() if not k.startswith('_')} for config in configs]
+    return jsonify(jsonified)
 
 @config_blueprint.route('/configs', methods=['GET'])
 def get_configs():

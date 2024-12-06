@@ -5,6 +5,7 @@ from flask import jsonify
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+
 def main():
     '''
     Main thread of our logic, where we call the corresponding functions
@@ -17,7 +18,7 @@ def main():
 
     configs = session.query(ConfigModel).all()
     # print(jsonify(configs))
-    jsonified = [config.__dict__ for config in configs]
+    jsonified = [{k: v for k, v in vars(config).items() if not k.startswith('_')} for config in configs]
     print(jsonified)
 
     # for config in configs:
