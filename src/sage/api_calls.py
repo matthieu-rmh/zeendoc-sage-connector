@@ -7,11 +7,13 @@ def get_sage_credentials() -> dict[str, str | None]:
     Get the SAGE credentials generated from the .env file
     """
     load_dotenv()
-    return {
+    envs = {
             "url_endpoint": os.getenv('SAGE_ENDPOINT'),
             "username": os.getenv('SAGE_USERNAME'),
-            "password": os.getenv('SAGE_PASSWORD')
+            "password": os.getenv('SAGE_PASSWORD'),
+            "society": os.getenv('SAGE_SOCIETY')
             }
+    return envs
 
 def make_api_request(method: str, body: dict[str, str]) -> dict:
     """
@@ -41,4 +43,5 @@ def authenticate(session: requests.Session) -> requests.Response:
     endpoint = credentials["url_endpoint"]
     username = credentials["username"]
     password = credentials["password"]
-    return session.get(f'{endpoint}/$connect?username={username}&password={password}')
+    society = credentials["society"]
+    return session.get(f'{endpoint}/$connect?username={username}&password={password}&society={society}')

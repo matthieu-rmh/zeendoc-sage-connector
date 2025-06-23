@@ -1,3 +1,4 @@
+from sage.api_calls import get_sage_credentials
 from core_logics import get_sage_receipt_lines, convert_receipt_lines
 from models.config_pg import ConfigModel
 # pg parts
@@ -12,22 +13,23 @@ def main():
     to call the APIs whether from Sage or Zeendoc
     '''
 
-    engine = create_engine('postgresql://postgres:postgres@localhost:5433/ynit_connector')
-    Session = sessionmaker(bind=engine)
-    session = Session()
-
-    configs = session.query(ConfigModel).all()
-    # print(jsonify(configs))
-    jsonified = [{k: v for k, v in vars(config).items() if not k.startswith('_')} for config in configs]
-    print(jsonified)
+    get_sage_credentials()
+    # engine = create_engine('postgresql://postgres:postgres@localhost:5433/ynit_connector')
+    # Session = sessionmaker(bind=engine)
+    # session = Session()
+    #
+    # configs = session.query(ConfigModel).all()
+    # # print(jsonify(configs))
+    # jsonified = [{k: v for k, v in vars(config).items() if not k.startswith('_')} for config in configs]
+    # print(jsonified)
 
     # for config in configs:
     #     print(config.id, config.cupboard, config.enabled)
-
+    #
     # raw_sage_receipt_lines = get_sage_receipt_lines()
     # print(str(type(raw_sage_receipt_lines)))
     # converted_sage_receipt_lines = convert_receipt_lines(raw_sage_receipt_lines) 
-    
+    #
     # print(str(converted_sage_receipt_lines))
 
     # this is a variable populated with mock data simulating receipt lines

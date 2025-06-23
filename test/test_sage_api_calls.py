@@ -21,6 +21,10 @@ class TestSageApiCalls(unittest.TestCase):
         self.assertIsInstance(sage_credentials["password"], str, """
                               Password not instantiated
                               """)
+        self.assertIsInstance(sage_credentials["society"], str, """
+                      Society not instantiated
+                      """)
+
 
     def test_sage_authentication(self) -> None:
         """
