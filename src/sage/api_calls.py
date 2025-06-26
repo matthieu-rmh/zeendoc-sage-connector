@@ -10,8 +10,9 @@ def get_sage_credentials() -> dict[str, str | None]:
     envs = {
             "url_endpoint": os.getenv('SAGE_ENDPOINT'),
             "username": os.getenv('SAGE_USERNAME'),
-            "password": os.getenv('SAGE_PASSWORD'),
-            "society": os.getenv('SAGE_SOCIETY')
+            "password": os.getenv('SAGE_PASSWORD')
+            # this .env value is optional and might even crash when in prod
+            # "society": os.getenv('SAGE_SOCIETY')
             }
     return envs
 
@@ -32,8 +33,8 @@ def get_receipt_lines() -> dict[str, str]:
     Get receipt lines from SAGE
     """
     body = {
-        "dateRef": "2023-01-01",
-        "Societe": "Société 1"
+        "dateRef": "2025-01-01",
+        "Societe": "AFIPH"
     }
 
     return make_api_request("/CET_CAPI/GetReceptions", body)
@@ -43,5 +44,6 @@ def authenticate(session: requests.Session) -> requests.Response:
     endpoint = credentials["url_endpoint"]
     username = credentials["username"]
     password = credentials["password"]
-    society = credentials["society"]
-    return session.get(f'{endpoint}/$connect?username={username}&password={password}&society={society}')
+    # same reason as all above 
+    # society = credentials["society"]
+    return session.get(f'{endpoint}/$connect?username={username}&password={password}')

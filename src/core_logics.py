@@ -27,24 +27,23 @@ def convert_receipt_lines(receipts):
     # description_article
 
     return [{
-            "id_ligne": line_data["lines"][0]["id_ligne"],
-            "bon_commande": line_data["lines"][0]["bon_commande"],
-            "nom_br": line_data["lines"][0]["nom_br"],
+            "id_ligne": item["id_ligne"],
+            "bon_commande": item["bon_commande"],
+            "nom_br": item["nom_br"],
             # "date_commande" is missing from the response
-            "date_br": datetime.fromisoformat(line_data["lines"][0]["date_br"]
+            "date_br": datetime.fromisoformat(item["date_br"]
                                               ).strftime("%Y-%m-%d"),
-            "fournisseur": line_data["lines"][0]["fournisseur"],
-            "pu_original": line_data["lines"][0]["pu_original"],
-            "quantite_originale": line_data["lines"][0]["quantite_original"],
+            "fournisseur": item["fournisseur"],
+            "pu_original": item["pu_original"],
+            "quantite_originale": item["quantite_original"],
             # renamed the key here for orthograph purpose
             # "taux_tva_original" is missing
             # "total_ligne original" is missing
             # "remise_originale" is missing
             "ref_article_fournisseur":
-                line_data["lines"][0]["ref_article_fournisseur_retenue"],
+                item["ref_article_fournisseur_retenue"],
             # "ref_article_fournisseur_retenue" : correct key name / value ? 
-            "ref_article_erp": line_data["lines"][0]["ref_article_erp"],
-            "description_article": line_data["lines"][0]["description_article"],
-             } for line_data in receipts["Receptions"] if line_data is not None
-            # a line has been of NoneType so we add this condition
+            "ref_article_erp": item["ref_article_erp"],
+            "description_article": item["description_article"],
+             } for data in receipts["Receptions"] for item in data["lines"] if data is not None            # a line has been of NoneType so we add this condition
             ]
