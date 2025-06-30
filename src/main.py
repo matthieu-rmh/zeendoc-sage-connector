@@ -1,4 +1,5 @@
 from sage.api_calls import get_sage_credentials, get_receipt_lines
+from zeendoc.api_calls import import_lines
 from core_logics import get_sage_receipt_lines, convert_receipt_lines
 from models.config_pg import ConfigModel
 # pg parts
@@ -30,8 +31,10 @@ def main():
     # print(str(type(raw_sage_receipt_lines)))
     converted_sage_receipt_lines = convert_receipt_lines(raw_sage_receipt_lines) 
 
-    print(str(converted_sage_receipt_lines))
-    print(str(len(converted_sage_receipt_lines)))
+    # print(str(converted_sage_receipt_lines))
+    # print(str(len(converted_sage_receipt_lines)))
+    res = import_lines(converted_sage_receipt_lines)
+    print(str(res))
 
     # this is a variable populated with mock data simulating receipt lines
     # receipts = get_sage_receipt_lines()
