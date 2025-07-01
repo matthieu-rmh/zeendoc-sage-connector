@@ -26,9 +26,7 @@ def import_lines(mapped_sage_lines) -> dict[str, str]:
     """
     Import lines from SAGE to zeendoc
     """
-    body = {
-        "dummy": "dummy"
-    }
+    body = {"data": mapped_sage_lines}
 
     return make_api_request(body)
 

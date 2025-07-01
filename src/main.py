@@ -27,14 +27,20 @@ def main():
     # for config in configs:
     #     print(config.id, config.cupboard, config.enabled)
     #
-    raw_sage_receipt_lines = get_sage_receipt_lines()
-    # print(str(type(raw_sage_receipt_lines)))
-    converted_sage_receipt_lines = convert_receipt_lines(raw_sage_receipt_lines) 
 
+    ###################################################
+    # Get SAGE lines as they are
+    # raw_sage_receipt_lines = get_sage_receipt_lines()
+    # Then convert / remap them
+    # converted_sage_receipt_lines = convert_receipt_lines(raw_sage_receipt_lines) 
+
+    # print("###### sage receipt lines start ######")
     # print(str(converted_sage_receipt_lines))
-    # print(str(len(converted_sage_receipt_lines)))
-    res = import_lines(converted_sage_receipt_lines)
-    print(str(res))
+    # Import these remapped lines to Zeendoc
+    # res = import_lines(converted_sage_receipt_lines)
+    # print("###### sage receipt lines end ######")
+    # print(str(res))
+    ###################################################
 
     # this is a variable populated with mock data simulating receipt lines
     # receipts = get_sage_receipt_lines()
