@@ -14,7 +14,6 @@ def main():
     to call the APIs whether from Sage or Zeendoc
     '''
 
-    print(str(get_receipt_lines()))
     # engine = create_engine('postgresql://postgres:postgres@localhost:5433/ynit_connector')
     # Session = sessionmaker(bind=engine)
     # session = Session()
@@ -30,12 +29,16 @@ def main():
 
     ###################################################
     # Get SAGE lines as they are
-    # raw_sage_receipt_lines = get_sage_receipt_lines()
-    # Then convert / remap them
-    # converted_sage_receipt_lines = convert_receipt_lines(raw_sage_receipt_lines) 
+    # print("###SAGE LINES###")
+    raw_sage_receipt_lines = get_sage_receipt_lines()
+    # print(str(raw_sage_receipt_lines))
 
-    # print("###### sage receipt lines start ######")
+    # Then convert / remap them
+    # print("###CONVERTED LINES###")
+    converted_sage_receipt_lines = convert_receipt_lines(raw_sage_receipt_lines) 
     # print(str(converted_sage_receipt_lines))
+
+
     # Import these remapped lines to Zeendoc
     # res = import_lines(converted_sage_receipt_lines)
     # print("###### sage receipt lines end ######")

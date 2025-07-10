@@ -116,11 +116,14 @@ def convert_receipt_lines(receipts):
     #RAW SAGE LINE : 
     return [
             {
-                "id_ligne": item["id_ligne"],
+                # Take id_line instead id_ligne as id_ligne contains duplicates
+                # "id_ligne": item["id_ligne"],
+                "id_ligne": item["id_line"],
                 "num_br": item["id_ligne"],
                 "date_br": datetime.fromisoformat(item["date_br"]).strftime("%Y-%m-%d"),
                 "id_fournisseur": item["fournisseur"],
-                "num_ligne": item["id_ligne"],
+                # "num_ligne": item["id_ligne"],
+                "num_ligne": item["id_line"],
                 "pu_original": item["pu_original"],
                 "quantite_originale": item["quantite_original"],
                 "total_ligne_retenu": item["total_ligne_retenu"],
